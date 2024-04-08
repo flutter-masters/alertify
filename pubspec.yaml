@@ -1,0 +1,51 @@
+name: alertify
+description: A Flutter project demonstrating the implementation of Clean Architecture principles using Riverpod for state management. Clean Architecture promotes modularity, testability, and maintainability in the codebase.
+publish_to: 'none' 
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies:
+  cupertino_icons: ^1.0.6
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
