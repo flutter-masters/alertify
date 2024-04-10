@@ -19,9 +19,8 @@ class _HomeTabState extends State<HomeTab> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ClipOval(
-            child: SizedBox(
-              width: 120,
-              height: 120,
+            child: SizedBox.square(
+              dimension: 120,
               child: Material(
                 color: Palette.green,
                 child: InkWell(

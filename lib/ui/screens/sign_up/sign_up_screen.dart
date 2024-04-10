@@ -1,5 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/result.dart';
+import '../../../entities/app_user.dart';
+import '../../../services/auth_service.dart';
+import '../../../services/user_service.dart';
+import '../../shared/dialogs/error_dialog.dart';
+import '../../shared/dialogs/loader_dialog.dart';
+import '../../shared/extensions/auth_failure_x.dart';
 import '../../shared/extensions/build_context.dart';
 import '../../shared/validators/form_validator.dart';
 import '../../shared/widgets/flutter_masters_rich_text.dart';
@@ -16,6 +25,9 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final authService = AuthService(FirebaseAuth.instance);
+  final userService = UserService(FirebaseFirestore.instance);
+  AppUser? user;
   late final formKey = GlobalKey<FormState>();
 
   var userName = '';
@@ -26,7 +38,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    return context.pushNamedAndRemoveUntil<void>(HomeScreen.route);
+    if (user != null) return createUser();
+    final result = await showLoader(
+      context,
+      authService.signUp(email: email, password: password),
+    );
+    final record = switch (result) {
+      Success(value: final user) => (user: user, failure: null),
+      Error(value: final failure) => (user: null, failure: failure),
+    };
+    user = record.user;
+    final failure = record.failure;
+    if (failure != null) {
+      final data = failure.errorData;
+      return ErrorDialog.show(
+        context,
+        title: data.message,
+        icon: data.icon,
+      );
+    }
+    return createUser();
+  }
+
+  Future<void> createUser() async {
+    final result = await showLoader(
+      context,
+      userService.createUser(
+        id: user!.id,
+        username: userName,
+        email: email,
+        photoUrl: user?.photoUrl,
+      ),
+    );
+    final route = switch (result) {
+      Success() => HomeScreen.route,
+      Error() => null,
+    };
+    if (route != null) {
+      return context.pushNamedAndRemoveUntil<void>(route);
+    }
   }
 
   @override
