@@ -1,5 +1,8 @@
 name: Hello World Alertify
-on: workflow_dispatch
+on: 
+  push:
+    branches:
+        - github-actions/initial
 jobs:
     helloworld:
         runs-on: macos-latest
