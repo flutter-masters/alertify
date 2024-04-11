@@ -1,0 +1,9 @@
+name: Hello World Alertify
+on: workflow_dispatch
+jobs:
+    helloworld:
+        runs-on: macos-latest
+        steps:
+            - name: Hello World
+              run: echo 'Hello World'
+   
