@@ -1,5 +1,5 @@
-# 01. INTALL JAVA
-# 02. INSTALL FLUTTER
+# 01. INTALL JAVA ✅
+# 02. INSTALL FLUTTER ✅
 # 03. GENERAR UNA APK
 # 04. GUARD
 #     - flutter analyze
@@ -9,7 +9,7 @@
 #     - INSTALAR CERTIFICADOS
 #     - CONFIGURAR KEYCHAIN
 # 06. APP DISTRIBUTION CLI
-#     - firebase tools
+#     - firebase tools ✅
 
 name: FLUTTER_MASTER
 on:
@@ -23,9 +23,16 @@ jobs:
     steps:
       - name: COPY .
         uses: actions/checkout@v4
-      - run: echo '${{vars.HELLO_MOM}}'
-      - run: echo '${{secrets.HELLO_MOM}}'
-      - uses: actions/setup-java@v4
+      - name: INSTALACION DE JAVA
+        uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: "11"
+      - name: INSTALL FIREBASE TOOLS
+        run: npm install -g firebase-tools
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "3.19.5"
+      - run: flutter --version
