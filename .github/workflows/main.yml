@@ -1,6 +1,6 @@
 # 01. INTALL JAVA ✅
 # 02. INSTALL FLUTTER ✅
-# 03. GENERAR UNA APK
+# 03. GENERAR UNA APK ✅
 # 04. GUARD
 #     - flutter analyze ✅
 #     - flutter test ✅
@@ -10,6 +10,7 @@
 #     - CONFIGURAR KEYCHAIN
 # 06. APP DISTRIBUTION CLI
 #     - firebase tools ✅
+# 07. ARTIFAC
 
 name: FLUTTER_MASTER
 on:
@@ -44,3 +45,9 @@ jobs:
 
       - name: GENERAR APK
         run: flutter build apk --release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk-and-ipa
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
