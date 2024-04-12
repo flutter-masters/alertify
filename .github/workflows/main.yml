@@ -100,10 +100,10 @@ jobs:
           echo "${{ secrets.JSON_APP_DISTRIBUTION_ACCESS }}" | base64 --decode > "google-application-credentials.json"
 
       - name: UPLOAD ANDROID TO APP DISTRIBUTION
-        run: firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk --app app_id:android:app_id --groups "testers"
+        run: firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk --app 1:927233104549:android:56747debe9c0c55fdc8b4c --groups "testers"
 
       - name: UPLOAD IOS TO APP DISTRIBUTION
-        run: firebase appdistribution:distribute build/ios/ipa/Apps/alertify.ipa --app app_id:ios:app_id --groups "testers"
+        run: firebase appdistribution:distribute build/ios/ipa/Apps/alertify.ipa --app 1:927233104549:ios:6e7663cbe53d4358dc8b4c --groups "testers"
 
       #<----------------    ARTIFACS    ---------------------->
       - name: UPLOAD ARTIFAC
