@@ -59,6 +59,14 @@ jobs:
       - name: GENERAR APK
         run: flutter build apk --release
 
+      - name: GOOGLE CREDENTIAL
+        shell: bash
+        run: |
+          echo '${{secrets.JSON_APP_CREDENTIAL_ACCESS}}' | base64 --decode > "google-appliaction-credential.json"
+
+      - name: UPLOAD APK DISTRIBUTION
+        run: firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk --app 1:927233104549:android:56747debe9c0c55fdc8b4c --groups "testers"
+
       - name: ARTIFACR
         uses: actions/upload-artifact@v4
         with:
