@@ -28,11 +28,15 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "11"
-      - name: INSTALL FIREBASE TOOLS
-        run: npm install -g firebase-tools
+      #   - name: INSTALL FIREBASE TOOLS
+      #     run: npm install -g firebase-tools
 
-      - name: Set up Flutter
+      - name: INSTALL FLUTTER
         uses: subosito/flutter-action@v2
         with:
           channel: "3.19.5"
       - run: flutter --version
+      - name: FLUTTER TEST
+        run: flutter test
+      - name: FLUTTER ANALYZE
+        run: flutter analyze
