@@ -23,7 +23,7 @@ jobs:
           key: "${{ runner.tool_cache }}-flutter-${{runner.arch}}"
 
       #<---------------- END CACHE STRATEGY ------------------->
-      #<----------------     INIT CONFIG    ------------------->
+      #<----------------     INIT CONFIGURATION    ------------------->
       - name: COPY .
         uses: actions/checkout@v4
 
