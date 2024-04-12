@@ -10,3 +10,5 @@ jobs:
     steps:
       - name: COPY .
         uses: actions/checkout@v4
+      - run: echo '${{vars.HELLO_MOM}}'
+      - run: echo '${{secrets.HELLO_MOM}}'
