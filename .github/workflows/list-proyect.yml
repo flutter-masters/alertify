@@ -7,6 +7,6 @@ jobs:
     listproject:
         runs-on: macos-latest
         steps:
-            - name: Listar antes de checkout
-              run: ls
+            - name: Build apk
+              run: flutter build apk
    
