@@ -1,0 +1,12 @@
+name: List Project
+on: 
+  push:
+    branches:
+        - github-actions/initial
+jobs:
+    listproject:
+        runs-on: macos-latest
+        steps:
+            - name: Listar antes de checkout
+              run: ls
+   
