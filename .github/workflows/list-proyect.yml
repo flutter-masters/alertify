@@ -7,6 +7,10 @@ jobs:
     listproject:
         runs-on: macos-latest
         steps:
-            - name: Build apk
-              run: flutter build apk
+            - name: List before checkout
+              run: ls
+            - name: Checkout
+              uses: actions/checkout@v3
+            - name: List after checkout
+              run: ls
    
