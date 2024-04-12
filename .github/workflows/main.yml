@@ -1,3 +1,16 @@
+# 01. INTALL JAVA
+# 02. INSTALL FLUTTER
+# 03. GENERAR UNA APK
+# 04. GUARD
+#     - flutter analyze
+#     - flutter test
+# 05. GENERAR IPA
+#     - INSTALAR PERFIL TEMPORAL
+#     - INSTALAR CERTIFICADOS
+#     - CONFIGURAR KEYCHAIN
+# 06. APP DISTRIBUTION CLI
+#     - firebase tools
+
 name: FLUTTER_MASTER
 on:
   push:
@@ -12,3 +25,7 @@ jobs:
         uses: actions/checkout@v4
       - run: echo '${{vars.HELLO_MOM}}'
       - run: echo '${{secrets.HELLO_MOM}}'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "11"
