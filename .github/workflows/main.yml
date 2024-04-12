@@ -10,7 +10,9 @@
 #     - CONFIGURAR KEYCHAIN
 # 06. APP DISTRIBUTION CLI
 #     - firebase tools ✅
+#     - google-aplication-credential.json
 # 07. ARTIFAC ✅
+# 08. CACHE STRATEGY ✅
 
 name: FLUTTER_MASTER
 on:
@@ -21,6 +23,8 @@ on:
 jobs:
   flutter_master_dev:
     runs-on: macos-latest
+    env:
+      GOOGLE_APPLICATION_CREDENTIAL: google-appliaction-credential.json
     steps:
       - name: Cache Primes
         id: cache-primes
@@ -55,7 +59,8 @@ jobs:
       - name: GENERAR APK
         run: flutter build apk --release
 
-      - uses: actions/upload-artifact@v4
+      - name: ARTIFACR
+        uses: actions/upload-artifact@v4
         with:
           name: apk-and-ipa
           path: |
