@@ -20,6 +20,10 @@ extension SignInAuthFailureX on SignInAuthFailure {
             icon: Icons.person_off,
             message: 'Your account has been disabled.'
           ),
+        SignInAuthFailure.invalidCredential => (
+            icon: Icons.mark_email_unread_outlined,
+            message: 'Invalid credentials'
+          ),
         _ => (
             icon: Icons.error_outline,
             message: 'Something went wrong.',

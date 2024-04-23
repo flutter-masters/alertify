@@ -1,5 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/result.dart';
+import '../../../services/auth_service.dart';
+import '../../shared/dialogs/error_dialog.dart';
+import '../../shared/dialogs/loader_dialog.dart';
+import '../../shared/extensions/auth_failure_x.dart';
 import '../../shared/extensions/build_context.dart';
 import '../../shared/validators/form_validator.dart';
 import '../../shared/widgets/flutter_masters_rich_text.dart';
@@ -16,6 +22,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final authService = AuthService(FirebaseAuth.instance);
+
   late final formKey = GlobalKey<FormState>();
   var email = '';
   var password = '';
@@ -23,6 +31,22 @@ class _SignInScreenState extends State<SignInScreen> {
   Future<void> signIn() async {
     if (!formKey.currentState!.validate()) {
       return;
+    }
+    final result = await showLoader(
+      context,
+      authService.signIn(email: email, password: password),
+    );
+    final failure = switch (result) {
+      Success() => null,
+      Error(value: final exception) => exception,
+    };
+    if (failure != null) {
+      final data = failure.errorData;
+      return ErrorDialog.show(
+        context,
+        title: data.message,
+        icon: data.icon,
+      );
     }
     return context.pushNamedAndRemoveUntil<void>(HomeScreen.route);
   }
