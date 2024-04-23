@@ -7,6 +7,7 @@ import '../../../../../services/friendship_service.dart';
 import '../../../core/result.dart';
 import '../../../core/typedefs.dart';
 import '../../../entities/friendship.dart';
+import '../../../failures/failure.dart';
 import '../../shared/dialogs/loader_dialog.dart';
 import '../../shared/validators/form_validator.dart';
 import '../../shared/widgets/user_list.dart';
@@ -100,7 +101,7 @@ class _SearchScreenState extends State<SearchScreen> {
     final friendship = friendshipData.friendships!;
     final result = await showLoader(
       context,
-      friendshipsService.cancelFrienshipRequest(friendship.id),
+      friendshipsService.cancelFriendshipRequest(friendship.id),
     );
     final friendshipsData = switch (result) {
       Success() => addNewData(
@@ -114,6 +115,36 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           friendshipData,
         ),
+      Error() => data,
+    };
+    state = SearchLoadedState(data: friendshipsData);
+    setState(() {});
+  }
+
+  Future<void> acceptFriendshipRequest(FriendshipData friendshipData) async {
+    final result = await showLoader(
+      context,
+      friendshipsService
+          .acceptFriendshipRequest(friendshipData.friendships!.id),
+    );
+    friendshipActionResultToState(result, friendshipData);
+  }
+
+  Future<void> rejectFriendshipRequest(FriendshipData friendshipData) async {
+    final result = await showLoader(
+      context,
+      friendshipsService
+          .rejectFriendshipRequest(friendshipData.friendships!.id),
+    );
+    friendshipActionResultToState(result, friendshipData);
+  }
+
+  void friendshipActionResultToState(
+    Result<void, Failure> result,
+    FriendshipData friendshipData,
+  ) {
+    final friendshipsData = switch (result) {
+      Success() => [...data]..remove(friendshipData),
       Error() => data,
     };
     state = SearchLoadedState(data: friendshipsData);
@@ -183,26 +214,18 @@ class _SearchScreenState extends State<SearchScreen> {
                     trailingIcon: Icons.person_remove_alt_1_rounded,
                   ),
                 FriendshipStatus.pending => RequestTile(
-                    // TODO(any): add method for accept friendship
-                    onAccept: () {},
-                    // TODO(any): add method for reject friendship
-                    onReject: () {},
+                    onAccept: () => acceptFriendshipRequest(friendshipData),
+                    onReject: () => rejectFriendshipRequest(friendshipData),
                     username: user.username,
                     email: user.email,
                     photoUrl: user.photoUrl,
                   ),
                 FriendshipStatus.active => UserTile(
-                    // TODO(any): add method for delete friend
-                    onPressed: () {},
+                    onPressed: () => cancelFriendship(friendshipData),
                     username: friendshipData.user.username,
                     email: friendshipData.user.email,
                   ),
               };
-              // return UserTile(
-              //   onPressed: () {},
-              //   username: friendshipData.user.username,
-              //   email: friendshipData.user.email,
-              // );
             },
           ),
         SearchLoadErrorState(error: final error) => Center(child: Text(error)),
