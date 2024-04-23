@@ -1,7 +1,7 @@
 name: FLUTTER_MASTER
 on:
   push:
-    branches: [github-action]
+    branches: [main]
 
 jobs:
   flutter_master_deploy:
