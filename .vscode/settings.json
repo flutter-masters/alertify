@@ -5,4 +5,5 @@
     },
     "editor.formatOnSave": true,
     "files.defaultLanguage": "dart",
+    "yaml.schemaStore.enable": false,
 }
