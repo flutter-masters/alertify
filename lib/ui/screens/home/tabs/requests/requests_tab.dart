@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/result.dart';
 import '../../../../../core/typedefs.dart';
+import '../../../../../failures/failure.dart';
 import '../../../../../services/auth_service.dart';
 import '../../../../../services/friendship_service.dart';
+import '../../../../shared/dialogs/loader_dialog.dart';
 import '../../../../shared/extensions/build_context.dart';
 import '../../../../shared/widgets/user_list.dart';
 import 'widgets/app_bar.dart';
@@ -56,6 +58,41 @@ class _RequestsTabState extends State<RequestsTab> {
     setState(() {});
   }
 
+  Future<void> acceptFriendshipRequest(FriendshipData friendshipData) async {
+    final result = await showLoader(
+      context,
+      friendshipsService
+          .acceptFriendshipRequest(friendshipData.friendships!.id),
+    );
+    resultToState(result, friendshipData);
+  }
+
+  Future<void> rejectFriendshipRequest(FriendshipData friendshipData) async {
+    final result = await showLoader(
+      context,
+      friendshipsService.rejectFriendshipRequest(
+        friendshipData.friendships!.id,
+      ),
+    );
+    resultToState(result, friendshipData);
+  }
+
+  void resultToState(
+    Result<void, Failure> result,
+    FriendshipData friendshipData,
+  ) {
+    final data = switch (state) {
+      RequestLoadedState(requests: final data) => data,
+      _ => <FriendshipData>[],
+    };
+    final friendshipsData = switch (result) {
+      Success() => [...data]..remove(friendshipData),
+      Error() => data,
+    };
+    state = RequestLoadedState(requests: friendshipsData);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -73,15 +110,13 @@ class _RequestsTabState extends State<RequestsTab> {
                 const Center(child: Text('No tienes solicitudes pendientes')),
               RequestLoadedState(requests: final requests) => UserList(
                   data: requests,
-                  builder: (_, request) {
-                    return RequestTile(
-                      onAccept: () {},
-                      onReject: () {},
-                      username: request.user.username,
-                      email: request.user.email,
-                      photoUrl: request.user.photoUrl,
-                    );
-                  },
+                  builder: (_, request) => RequestTile(
+                    onAccept: () => acceptFriendshipRequest(request),
+                    onReject: () => rejectFriendshipRequest(request),
+                    username: request.user.username,
+                    email: request.user.email,
+                    photoUrl: request.user.photoUrl,
+                  ),
                 ),
               RequestLoadErrorState(error: final error) => Center(
                   child: Text(error),

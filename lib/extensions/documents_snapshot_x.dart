@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../core/typedefs.dart';
 import '../entities/app_user.dart';
+import '../entities/emergency_alert.dart';
 import '../entities/friendship.dart';
 
 extension DocumentSnapshotX on DocumentSnapshot<Json> {
@@ -25,6 +26,15 @@ extension DocumentSnapshotX on DocumentSnapshot<Json> {
       updateAt: DateTime.parse(this['updateAt']),
       sender: this['sender'],
       users: (this['users'] as List).map((e) => e.toString()).toList(),
+    );
+  }
+
+  EmergencyAlert toEmergencyAlert() {
+    return EmergencyAlert(
+      id: id,
+      sender: this['sender'],
+      recipient: this['recipient'],
+      createdAt: (this['createdAt'] as Timestamp).toDate(),
     );
   }
 }

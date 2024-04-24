@@ -6,6 +6,7 @@ import '../../../../../core/result.dart';
 import '../../../../../core/typedefs.dart';
 import '../../../../../services/auth_service.dart';
 import '../../../../../services/friendship_service.dart';
+import '../../../../shared/dialogs/loader_dialog.dart';
 import '../../../../shared/extensions/build_context.dart';
 import '../../../../shared/widgets/user_list.dart';
 import '../../../../shared/widgets/user_tile.dart';
@@ -59,6 +60,26 @@ class _FriendsTabState extends State<FriendsTab> {
     setState(() {});
   }
 
+  Future<void> onDelete(FriendshipData friendshipData) async {
+    final deleted = await showLoader(
+      context,
+      friendshipsService.cancelFriendshipRequest(
+        friendshipData.friendships!.id,
+      ),
+    );
+    final friendsData = switch (deleted) {
+      Success() => [...data]..remove(friendshipData),
+      Error() => data,
+    };
+    state = FriendLoadedState(friends: friendsData);
+    setState(() {});
+  }
+
+  List<FriendshipData> get data => switch (state) {
+        FriendLoadedState(friends: final friendsData) => friendsData,
+        _ => [],
+      };
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -80,7 +101,7 @@ class _FriendsTabState extends State<FriendsTab> {
               FriendLoadedState(friends: final friends) => UserList(
                   data: friends,
                   builder: (_, friendshipData) => UserTile(
-                    onPressed: () {},
+                    onPressed: () => onDelete(friendshipData),
                     username: friendshipData.user.username,
                     email: friendshipData.user.email,
                   ),

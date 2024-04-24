@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../core/result.dart';
 import '../core/typedefs.dart';
+import '../entities/emergency_alert.dart';
 import '../entities/friendship.dart';
 import '../extensions/documents_snapshot_x.dart';
 import '../failures/failure.dart';
@@ -10,7 +11,7 @@ import '../ui/shared/extensions/iterable_x.dart';
 extension type FriendshipService(FirebaseFirestore db) {
   CollectionReference<Json> get _collection => db.collection('friendships');
 
-  Future<List<Friendship>> _getFriendshipId(String userId) async {
+  Future<List<Friendship>> _friendships(String userId) async {
     try {
       final snapshots = await _collection
           .where('status', isEqualTo: FriendshipStatus.active.name)
@@ -22,9 +23,21 @@ extension type FriendshipService(FirebaseFirestore db) {
     }
   }
 
+  Stream<EmergencyAlert> onEmergencyAlert(String recipient) {
+    final query = db
+        .collection('alerts')
+        .where('recipient', isEqualTo: recipient)
+        .orderBy('createdAt', descending: true)
+        .limit(1)
+        .snapshots();
+    return query.expand<EmergencyAlert>(
+      (event) => event.docs.map((doc) => doc.toEmergencyAlert()).toList(),
+    );
+  }
+
   FutureResult<List<FriendshipData>> getFriends(String userId) async {
     try {
-      final friendships = await _getFriendshipId(userId);
+      final friendships = await _friendships(userId);
       if (friendships.isEmpty) {
         return Success([]);
       }
@@ -161,23 +174,86 @@ extension type FriendshipService(FirebaseFirestore db) {
     }
   }
 
-  FutureResult<void> cancelFrienshipRequest(String friendshipId) async {
+  FutureResult<void> acceptFriendshipRequest(
+    String friendshipId,
+  ) async {
     try {
       final ref = _collection.doc(friendshipId);
       final snapshot = await ref.get();
       if (!snapshot.exists) {
-        return Error(Failure(message: 'Solicitud no existe...'));
+        return Error(Failure(message: 'Friendship no exists'));
       }
       await ref.set(
         {
-          'status': FriendshipStatus.archived.name,
-          'updateAt': DateTime.now().toIso8601String(),
+          'status': FriendshipStatus.active.name,
+          'updatedAt': DateTime.now().toIso8601String(),
         },
         SetOptions(merge: true),
       );
       return Success(null);
-    } catch (_) {
-      return Error(Failure(message: _.toString()));
+    } catch (e) {
+      return Error(Failure(message: e.toString()));
+    }
+  }
+
+  FutureResult<void> rejectFriendshipRequest(String friendshipId) async {
+    try {
+      final ref = _collection.doc(friendshipId);
+      final snapshot = await ref.get();
+      if (!snapshot.exists) {
+        return Error(Failure(message: 'Friendship no exists'));
+      }
+      await ref.delete();
+      return Success(null);
+    } catch (e) {
+      return Error(Failure(message: e.toString()));
+    }
+  }
+
+  FutureResult<void> cancelFriendshipRequest(String friendshipId) async {
+    try {
+      final ref = _collection.doc(friendshipId);
+      final snapshot = await ref.get();
+      if (!snapshot.exists) {
+        return Error(Failure(message: 'Friendship no exists'));
+      }
+      await ref.set(
+        {
+          'status': FriendshipStatus.archived.name,
+          'updatedAt': DateTime.now().toIso8601String(),
+        },
+        SetOptions(merge: true),
+      );
+      return Success(null);
+    } catch (e) {
+      return Error(Failure(message: e.toString()));
+    }
+  }
+
+  FutureResult<void> sendAlert(String userId) async {
+    try {
+      final friendships = await _friendships(userId);
+      final friendsIds = friendships
+          .map((e) => e.users.firstWhere((id) => id != userId))
+          .toList();
+      if (friendsIds.isEmpty) {
+        return Error(Failure(message: 'You do not have friends'));
+      }
+      final batch = db.batch();
+      for (final recipient in friendsIds) {
+        batch.set(
+          _collection.doc(),
+          {
+            'senderId': userId,
+            'recipient': recipient,
+            'createdAt': DateTime.now().toIso8601String(),
+          },
+        );
+      }
+      await batch.commit();
+      return Success(null);
+    } catch (e) {
+      return Error(Failure(message: e.toString()));
     }
   }
 }
