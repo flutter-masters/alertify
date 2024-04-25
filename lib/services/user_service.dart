@@ -29,6 +29,7 @@ extension type UserService(FirebaseFirestore db) {
   }) async {
     try {
       await _collection.doc(id).set({
+        'id': id,
         'email': email,
         'username': username,
         'photoUrl': photoUrl,

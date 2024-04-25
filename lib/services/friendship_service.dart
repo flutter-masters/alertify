@@ -79,13 +79,11 @@ extension type FriendshipService(FirebaseFirestore db) {
       if (friendships.isEmpty) {
         return Success([]);
       }
-      final friendshipsIds = friendships
-          .map((friendship) => friendship.users.where((id) => id != userId))
+      final friendsIds = friendships
+          .map((e) => e.users.firstWhere((id) => id != userId))
           .toList();
-      final userSnapshot = await db
-          .collection('users')
-          .where('id', arrayContains: friendshipsIds)
-          .get();
+      final query = db.collection('users').where('id', whereIn: friendsIds);
+      final userSnapshot = await query.get();
       final users = userSnapshot.docs.map((doc) => doc.toAppUser()).toList();
       final data = <FriendshipData>[];
       for (final user in users) {
