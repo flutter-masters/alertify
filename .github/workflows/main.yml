@@ -7,6 +7,10 @@ jobs:
   flutter_master_deploy:
     runs-on: macos-latest
 
+    concurrency:
+      group: ${{ github.head_ref }}
+      cancel-in-progress: true
+
     env:
       GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
 
