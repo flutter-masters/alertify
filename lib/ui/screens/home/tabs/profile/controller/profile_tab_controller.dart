@@ -1,23 +1,21 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../../core/result.dart';
-import '../../../../../../services/auth_service.dart';
+import '../../../../../../main.dart';
 import '../../../../../../services/user_service.dart';
 
 final profileDataProvider = FutureProvider.autoDispose((ref) async {
-  final authService = AuthService(FirebaseAuth.instance);
-  final currentUserId = authService.currentUserId;
+  final currentUserId = ref.watch(authRepoProvider).currentUserId;
 
   final userService = UserService(FirebaseFirestore.instance);
   final result = await userService.userFromId(currentUserId);
 
   return switch (result) {
     Success(value: final user) => user,
-    Error(value: final failure) => throw Exception(failure.message),
+    Err(value: final failure) => throw Exception(failure.message),
   };
 });
 
@@ -44,8 +42,8 @@ class LogoutController extends AutoDisposeAsyncNotifier<LogoutStatus> {
     // Ya el automáticamente toma la excepción y envía el
     // AsyncValue.error() o el AsyncError().
     state = await AsyncValue.guard(() async {
-      final authService = AuthService(FirebaseAuth.instance);
-      await authService.logout();
+      final authRepo = ref.read(authRepoProvider);
+      await authRepo.logout();
 
       return LogoutStatus.sucess;
     });

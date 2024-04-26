@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/result.dart';
 import '../../../entities/app_user.dart';
-import '../../../services/auth_service.dart';
+import '../../../main.dart';
 import '../../../services/user_service.dart';
 import '../../shared/dialogs/error_dialog.dart';
 import '../../shared/dialogs/loader_dialog.dart';
@@ -15,17 +15,16 @@ import '../../shared/widgets/flutter_masters_rich_text.dart';
 import '../home/home_screen.dart';
 import '../sign_in/sign_in_screen.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
 
   static const String route = '/sign_up';
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  ConsumerState<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final authService = AuthService(FirebaseAuth.instance);
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final userService = UserService(FirebaseFirestore.instance);
   AppUser? user;
   late final formKey = GlobalKey<FormState>();
@@ -39,13 +38,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       return;
     }
     if (user != null) return createUser();
+    final authRepo = ref.read(authRepoProvider);
     final result = await showLoader(
       context,
-      authService.signUp(email: email, password: password),
+      authRepo.signUp(email: email, password: password),
     );
     final record = switch (result) {
       Success(value: final user) => (user: user, failure: null),
-      Error(value: final failure) => (user: null, failure: failure),
+      Err(value: final failure) => (user: null, failure: failure),
     };
     user = record.user;
     final failure = record.failure;
@@ -72,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
     final route = switch (result) {
       Success() => HomeScreen.route,
-      Error() => null,
+      Err() => null,
     };
     if (route != null) {
       return context.pushNamedAndRemoveUntil<void>(route);

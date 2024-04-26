@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../core/result.dart';
 import '../../../../../core/typedefs.dart';
 import '../../../../../failures/failure.dart';
-import '../../../../../services/auth_service.dart';
+import '../../../../../main.dart';
 import '../../../../../services/friendship_service.dart';
 import '../../../../shared/dialogs/loader_dialog.dart';
 import '../../../../shared/extensions/build_context.dart';
@@ -27,17 +27,17 @@ class RequestLoadErrorState extends RequestState {
   final String error;
 }
 
-class RequestsTab extends StatefulWidget {
+class RequestsTab extends ConsumerStatefulWidget {
   const RequestsTab({super.key});
 
   @override
-  State<RequestsTab> createState() => _RequestsTabState();
+  ConsumerState<RequestsTab> createState() => _RequestsTabState();
 }
 
-class _RequestsTabState extends State<RequestsTab> {
+class _RequestsTabState extends ConsumerState<RequestsTab> {
   RequestState state = RequestLoadingState();
   final friendshipsService = FriendshipService(FirebaseFirestore.instance);
-  final userId = AuthService(FirebaseAuth.instance).currentUserId;
+  String get userId => ref.read(authRepoProvider).currentUserId;
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _RequestsTabState extends State<RequestsTab> {
     final result = await friendshipsService.getFriendshipsRequest(userId);
     state = switch (result) {
       Success(value: final requests) => RequestLoadedState(requests: requests),
-      Error(value: final failure) => RequestLoadErrorState(
+      Err(value: final failure) => RequestLoadErrorState(
           error: failure.message,
         ),
     };
@@ -87,7 +87,7 @@ class _RequestsTabState extends State<RequestsTab> {
     };
     final friendshipsData = switch (result) {
       Success() => [...data]..remove(friendshipData),
-      Error() => data,
+      Err() => data,
     };
     state = RequestLoadedState(requests: friendshipsData);
     setState(() {});

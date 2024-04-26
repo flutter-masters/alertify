@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../core/result.dart';
 import '../../../../../core/typedefs.dart';
-import '../../../../../services/auth_service.dart';
+import '../../../../../main.dart';
 import '../../../../../services/friendship_service.dart';
 import '../../../../shared/dialogs/loader_dialog.dart';
 import '../../../../shared/extensions/build_context.dart';
@@ -29,17 +29,17 @@ class FriendLoadErrorState extends FriendState {
   final String error;
 }
 
-class FriendsTab extends StatefulWidget {
+class FriendsTab extends ConsumerStatefulWidget {
   const FriendsTab({super.key});
 
   @override
-  State<FriendsTab> createState() => _FriendsTabState();
+  ConsumerState<FriendsTab> createState() => _FriendsTabState();
 }
 
-class _FriendsTabState extends State<FriendsTab> {
+class _FriendsTabState extends ConsumerState<FriendsTab> {
   FriendState state = FriendLoadingState();
   final friendshipsService = FriendshipService(FirebaseFirestore.instance);
-  final userId = AuthService(FirebaseAuth.instance).currentUserId;
+  String get userId => ref.read(authRepoProvider).currentUserId;
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _FriendsTabState extends State<FriendsTab> {
     final result = await friendshipsService.getFriends(userId);
     state = switch (result) {
       Success(value: final friends) => FriendLoadedState(friends: friends),
-      Error(value: final failure) => FriendLoadErrorState(
+      Err(value: final failure) => FriendLoadErrorState(
           error: failure.message,
         ),
     };
@@ -69,7 +69,7 @@ class _FriendsTabState extends State<FriendsTab> {
     );
     final friendsData = switch (deleted) {
       Success() => [...data]..remove(friendshipData),
-      Error() => data,
+      Err() => data,
     };
     state = FriendLoadedState(friends: friendsData);
     setState(() {});

@@ -1,27 +1,28 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../services/auth_service.dart';
+import '../../../main.dart';
 import '../../shared/extensions/build_context.dart';
 import '../auth/auth_screen.dart';
 import '../home/home_screen.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   static const String route = '/';
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     Future<void>.delayed(
       const Duration(seconds: 3),
       () {
-        final route = switch (AuthService(FirebaseAuth.instance).logged) {
+        final logged = ref.read(authRepoProvider).logged;
+        final route = switch (logged) {
           true => HomeScreen.route,
           false => AuthScreen.route,
         };
