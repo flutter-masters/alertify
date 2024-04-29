@@ -10,32 +10,6 @@ class FirebaseAuthAdapter implements AuthRepo {
   const FirebaseAuthAdapter(this.client);
   final FirebaseAuth client;
 
-  FutureAuthResult<void, SignInAuthFailure> signIn({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      final credentials = await client.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      final user = credentials.user;
-      if (user != null) {
-        return Success(null);
-      }
-      return Err(SignInAuthFailure.userNotFound);
-    } on FirebaseAuthException catch (e) {
-      return Err(
-        SignInAuthFailure.values.firstWhere(
-          (failure) => failure.code == e.code,
-          orElse: () => SignInAuthFailure.unknown,
-        ),
-      );
-    } catch (_) {
-      return Err(SignInAuthFailure.unknown);
-    }
-  }
-
   FutureAuthResult<AppUser, SignUpAuthFailure> signUp({
     required String email,
     required String password,

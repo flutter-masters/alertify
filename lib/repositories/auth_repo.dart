@@ -3,11 +3,6 @@ import '../entities/app_user.dart';
 import '../failures/auth_failure.dart';
 
 abstract interface class AuthRepo {
-  FutureAuthResult<void, SignInAuthFailure> signIn({
-    required String email,
-    required String password,
-  });
-
   FutureAuthResult<AppUser, SignUpAuthFailure> signUp({
     required String email,
     required String password,
