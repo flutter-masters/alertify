@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/result.dart';
 import '../../../entities/app_user.dart';
+import '../../../features/sign_in/presentations/view/sign_in_screen.dart';
 import '../../../main.dart';
 import '../../../services/user_service.dart';
 import '../../shared/dialogs/error_dialog.dart';
@@ -13,7 +14,6 @@ import '../../shared/extensions/build_context.dart';
 import '../../shared/validators/form_validator.dart';
 import '../../shared/widgets/flutter_masters_rich_text.dart';
 import '../home/home_screen.dart';
-import '../sign_in/sign_in_screen.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
