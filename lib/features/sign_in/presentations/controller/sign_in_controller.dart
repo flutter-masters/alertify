@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/providers.dart';
 import '../../../../core/result.dart';
-import '../../../../main.dart';
 
 enum SignInStatus { none, success }
 
@@ -15,7 +15,7 @@ class SignInController extends AutoDisposeAsyncNotifier<SignInStatus> {
     state = const AsyncLoading();
 
     try {
-      final authRepo = ref.read(authRepoProvider);
+      final authRepo = ref.read(signInServiceProvider);
 
       final result = await authRepo.signIn(email: email, password: password);
       final failure = switch (result) {
