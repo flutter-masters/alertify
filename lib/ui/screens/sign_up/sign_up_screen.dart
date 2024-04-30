@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/result.dart';
 import '../../../entities/app_user.dart';
-import '../../../features/sign_in/presentations/view/sign_in_screen.dart';
+import '../../../features/sign_in/presentation/view/sign_in_screen.dart';
 import '../../../main.dart';
 import '../../../services/user_service.dart';
 import '../../shared/dialogs/error_dialog.dart';

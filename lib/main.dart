@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'features/auth/presentation/view/auth_screen.dart';
-import 'features/sign_in/presentations/view/sign_in_screen.dart';
+import 'features/sign_in/presentation/view/sign_in_screen.dart';
 import 'features/splash/presentation/view/splash_screen.dart';
 import 'firebase_options.dart';
 import 'repositories/repositories.dart';
