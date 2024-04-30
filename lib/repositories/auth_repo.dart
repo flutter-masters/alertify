@@ -8,9 +8,6 @@ abstract interface class AuthRepo {
     required String password,
   });
 
-  Future<void> logout();
-
   // TODO: Remover estos getters
   bool get logged;
-  String get currentUserId;
 }

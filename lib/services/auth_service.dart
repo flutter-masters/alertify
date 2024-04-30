@@ -43,10 +43,7 @@ class FirebaseAuthAdapter implements AuthRepo {
     }
   }
 
-  Future<void> logout() => client.signOut();
-
   bool get logged => client.currentUser != null;
-  String get currentUserId => client.currentUser!.uid;
 }
 
 // extension type AuthService(FirebaseAuth auth) {
