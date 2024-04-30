@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../ui/screens/auth/auth_screen.dart';
 import '../../../../ui/shared/extensions/build_context.dart';
 import '../../../../ui/shared/theme/palette.dart';
+import '../../../auth/presentation/view/auth_screen.dart';
 import '../controller/profile_tab_controller.dart';
 
 class ProfileTab extends ConsumerWidget {
