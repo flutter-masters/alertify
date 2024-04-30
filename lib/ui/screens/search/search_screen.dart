@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../services/friendship_service.dart';
+import '../../../core/providers.dart';
 import '../../../core/result.dart';
 import '../../../core/typedefs.dart';
 import '../../../entities/friendship.dart';
 import '../../../failures/failure.dart';
-import '../../../main.dart';
 import '../../shared/dialogs/loader_dialog.dart';
 import '../../shared/validators/form_validator.dart';
 import '../../shared/widgets/user_list.dart';
@@ -40,7 +40,7 @@ class SearchScreen extends ConsumerStatefulWidget {
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   SearchState state = SearchLoadingState();
   final friendshipsService = FriendshipService(FirebaseFirestore.instance);
-  String get userId => ref.read(authRepoProvider).currentUserId;
+  String get userId => ref.read(userServiceProvider).currentUserId;
 
   @override
   void initState() {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../main.dart';
+import '../../../core/providers.dart';
 import '../../shared/extensions/build_context.dart';
 import '../auth/auth_screen.dart';
 import '../home/home_screen.dart';
@@ -21,7 +21,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     Future<void>.delayed(
       const Duration(seconds: 3),
       () {
-        final logged = ref.read(authRepoProvider).logged;
+        final logged = ref.read(userServiceProvider).logged;
         final route = switch (logged) {
           true => HomeScreen.route,
           false => AuthScreen.route,

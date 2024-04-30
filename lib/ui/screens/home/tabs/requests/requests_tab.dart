@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../../core/providers.dart';
 import '../../../../../core/result.dart';
 import '../../../../../core/typedefs.dart';
 import '../../../../../failures/failure.dart';
-import '../../../../../main.dart';
 import '../../../../../services/friendship_service.dart';
 import '../../../../shared/dialogs/loader_dialog.dart';
 import '../../../../shared/extensions/build_context.dart';
@@ -37,7 +37,7 @@ class RequestsTab extends ConsumerStatefulWidget {
 class _RequestsTabState extends ConsumerState<RequestsTab> {
   RequestState state = RequestLoadingState();
   final friendshipsService = FriendshipService(FirebaseFirestore.instance);
-  String get userId => ref.read(authRepoProvider).currentUserId;
+  String get userId => ref.read(userServiceProvider).currentUserId;
 
   @override
   void initState() {
