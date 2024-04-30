@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../features/friendship/data/services/friendship_service.dart';
 import '../features/friendship/domain/repositories/friendship_repository.dart';
+import '../features/profile/data/services/profile_service.dart';
+import '../features/profile/domain/repositories/profile_repository.dart';
 import '../features/sign_in/data/services/sign_in_service.dart';
 import '../features/sign_in/domain/repositories/sign_in_repository.dart';
 import 'mobile_core_auth/user_repository.dart';
@@ -19,4 +21,11 @@ final userServiceProvider = Provider<UserRepository>(
 
 final friendshipServiceProvider = Provider<FriendshipRepository>(
   (_) => FriendshipService(FirebaseFirestore.instance),
+);
+
+final profileServiceProvider = Provider<ProfileRepository>(
+  (ref) => ProfileService(
+    FirebaseAuth.instance,
+    FirebaseFirestore.instance,
+  ),
 );
