@@ -13,27 +13,31 @@ class FriendshipService implements FriendshipRepository {
 
   final FirebaseFirestore db;
 
-  CollectionReference<Json> get _collection => db.collection('friendships');
+  CollectionReference<Json> get _friendshipCollection =>
+      db.collection('friendships');
+
+  CollectionReference<Json> get _userCollection => db.collection('users');
 
   @override
   FutureResult<List<FriendshipData>> getFriends(String userId) async {
     try {
       final friendships = await _friendships(userId);
-      if (friendships.isEmpty) {
-        return Success([]);
-      }
+      if (friendships.isEmpty) return Success([]);
+
       final friendshipIds = friendships
           .map((doc) => doc.users.firstWhereOrNull((id) => id != userId))
           .toList();
-      final query = db
-          .collection('users')
+
+      final snapshots = await _userCollection
           .orderBy('email')
-          .where('id', whereIn: friendshipIds);
-      final snapshots = await query.get();
+          .where('id', whereIn: friendshipIds)
+          .get();
+
       final users = snapshots.docs
           .where((element) => element.exists)
           .map((e) => e.toAppUser())
           .toList();
+
       final data = <FriendshipData>[];
       for (final user in users) {
         final friendship = friendships.firstWhereOrNull(
@@ -50,7 +54,7 @@ class FriendshipService implements FriendshipRepository {
   @override
   FutureResult<void> cancelFriendshipRequest(String friendshipId) async {
     try {
-      final ref = _collection.doc(friendshipId);
+      final ref = _friendshipCollection.doc(friendshipId);
       final snapshot = await ref.get();
       if (!snapshot.exists) {
         return Err(Failure(message: 'Friendship no exists'));
@@ -70,7 +74,7 @@ class FriendshipService implements FriendshipRepository {
 
   Future<List<Friendship>> _friendships(String userId) async {
     try {
-      final snapshots = await _collection
+      final snapshots = await _friendshipCollection
           .where('status', isEqualTo: FriendshipStatus.active.name)
           .where('users', arrayContains: userId)
           .get();
