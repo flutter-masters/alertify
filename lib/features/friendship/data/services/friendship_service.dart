@@ -46,8 +46,10 @@ class FriendshipService implements FriendshipRepository {
         data.add((friendships: friendship, user: user));
       }
       return Success(data);
-    } catch (_) {
-      return Err(Failure(message: _.toString()));
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return Err(Failure(message: e.toString()));
     }
   }
 

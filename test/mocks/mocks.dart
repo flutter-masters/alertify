@@ -16,15 +16,9 @@ class MockQuerySnapshot extends Mock
 
 class MockQueryDocumentSnapshot extends Mock
     implements QueryDocumentSnapshot<Map<String, dynamic>> {
-  MockQueryDocumentSnapshot(this.id, this.dataMock);
-
-  @override
-  final String id;
-
-  final Map<String, dynamic> dataMock;
-
-  @override
-  Map<String, dynamic> data() => dataMock;
+  dynamic operator [](Object field) {
+    return data()[field];
+  }
 }
 
 class MockQuery extends Mock implements Query<Map<String, dynamic>> {}
