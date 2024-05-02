@@ -15,11 +15,7 @@ class MockQuerySnapshot extends Mock
     implements QuerySnapshot<Map<String, dynamic>> {}
 
 class MockQueryDocumentSnapshot extends Mock
-    implements QueryDocumentSnapshot<Map<String, dynamic>> {
-  dynamic operator [](Object field) {
-    return data()[field];
-  }
-}
+    implements QueryDocumentSnapshot<Map<String, dynamic>> {}
 
 class MockQuery extends Mock implements Query<Map<String, dynamic>> {}
 
