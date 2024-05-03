@@ -15,7 +15,12 @@ class MockQuerySnapshot extends Mock
     implements QuerySnapshot<Map<String, dynamic>> {}
 
 class MockQueryDocumentSnapshot extends Mock
-    implements QueryDocumentSnapshot<Map<String, dynamic>> {}
+    implements QueryDocumentSnapshot<Map<String, dynamic>> {
+  dynamic operator [](Object field) {
+    final json = data();
+    return json[field];
+  }
+}
 
 class MockQuery extends Mock implements Query<Map<String, dynamic>> {}
 
@@ -23,17 +28,7 @@ class MockDocumentReference extends Mock
     implements DocumentReference<Map<String, dynamic>> {}
 
 class MockDocumentSnapshot extends Mock
-    implements DocumentSnapshot<Map<String, dynamic>> {
-  MockDocumentSnapshot(this.id, this.dataMock);
-
-  @override
-  final String id;
-
-  final Map<String, dynamic> dataMock;
-
-  @override
-  Map<String, dynamic>? data() => dataMock;
-}
+    implements DocumentSnapshot<Map<String, dynamic>> {}
 
 // Firebase Auth
 
