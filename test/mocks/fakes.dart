@@ -2,6 +2,8 @@ import 'package:alertify/entities/app_user.dart';
 import 'package:alertify/entities/friendship.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 
+const fakeUserId = 'fakeId';
+
 const fakeUserSenderId = 'senderId';
 
 const fakeAppUser = AppUser(
