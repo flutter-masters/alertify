@@ -1,5 +1,8 @@
 import 'package:alertify/entities/app_user.dart';
 import 'package:alertify/entities/friendship.dart';
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
+
+const fakeUserSenderId = 'senderId';
 
 const fakeAppUser = AppUser(
   id: 'id',
@@ -31,4 +34,11 @@ final fakeFriendship = Friendship(
   updateAt: dateNow,
   sender: 'senderId',
   users: ['senderId'],
+);
+
+final fakeMockUser = MockUser(
+  isAnonymous: false,
+  uid: fakeUserSenderId,
+  email: fakeAppUser.email,
+  displayName: fakeAppUser.username,
 );
