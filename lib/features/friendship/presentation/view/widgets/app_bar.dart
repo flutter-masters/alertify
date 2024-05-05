@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../shared/extensions/build_context.dart';
+import '../../../../../ui/shared/extensions/build_context.dart';
 
 class FriendsAppbar extends StatelessWidget {
   const FriendsAppbar({

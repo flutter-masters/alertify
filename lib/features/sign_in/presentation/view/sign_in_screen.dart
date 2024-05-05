@@ -3,16 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../failures/auth_failure.dart';
-import '../../shared/dialogs/error_dialog.dart';
-import '../../shared/dialogs/loader_dialog.dart';
-import '../../shared/extensions/auth_failure_x.dart';
-import '../../shared/extensions/build_context.dart';
-import '../../shared/validators/form_validator.dart';
-import '../../shared/widgets/flutter_masters_rich_text.dart';
-import '../home/home_screen.dart';
-import '../sign_up/sign_up_screen.dart';
-import 'controller/sign_in_controller.dart';
+import '../../../../failures/auth_failure.dart';
+import '../../../../ui/screens/home/home_screen.dart';
+import '../../../../ui/screens/sign_up/sign_up_screen.dart';
+import '../../../../ui/shared/dialogs/error_dialog.dart';
+import '../../../../ui/shared/dialogs/loader_dialog.dart';
+import '../../../../ui/shared/extensions/auth_failure_x.dart';
+import '../../../../ui/shared/extensions/build_context.dart';
+import '../../../../ui/shared/validators/form_validator.dart';
+import '../../../../ui/shared/widgets/flutter_masters_rich_text.dart';
+import '../controller/sign_in_controller.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});

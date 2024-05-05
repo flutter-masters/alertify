@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'tabs/friends/friends_tab.dart';
+import '../../../features/friendship/presentation/view/friends_tab.dart';
+import '../../../features/profile/presentation/view/profile_tab.dart';
 import 'tabs/home/home_tab.dart';
-import 'tabs/profile/profile_tab.dart';
 import 'tabs/requests/requests_tab.dart';
 import 'widgets/bottom_navigation_bar.dart';
 

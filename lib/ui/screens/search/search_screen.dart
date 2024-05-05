@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../services/auth_service.dart';
 import '../../../../../services/friendship_service.dart';
+import '../../../core/providers.dart';
 import '../../../core/result.dart';
 import '../../../core/typedefs.dart';
 import '../../../entities/friendship.dart';
@@ -29,18 +29,18 @@ class SearchLoadErrorState extends SearchState {
   final String error;
 }
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
   static const String route = '/search';
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> {
   SearchState state = SearchLoadingState();
   final friendshipsService = FriendshipService(FirebaseFirestore.instance);
-  final userId = AuthService(FirebaseAuth.instance).currentUserId;
+  String get userId => ref.read(userServiceProvider).currentUserId;
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
     final result = await friendshipsService.getFriendshipsRequest(userId);
     state = switch (result) {
       Success(value: final requests) => SearchLoadedState(data: requests),
-      Error(value: final failure) => SearchLoadErrorState(
+      Err(value: final failure) => SearchLoadErrorState(
           error: failure.message,
         ),
     };
@@ -71,7 +71,7 @@ class _SearchScreenState extends State<SearchScreen> {
       Success(value: final friendshipData) => SearchLoadedState(
           data: [friendshipData],
         ),
-      Error(value: final failure) => SearchLoadErrorState(
+      Err(value: final failure) => SearchLoadErrorState(
           error: failure.message,
         ),
     };
@@ -91,7 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
           friendship,
           friendshipData,
         ),
-      Error() => data,
+      Err() => data,
     };
     state = SearchLoadedState(data: friendshipsData);
     setState(() {});
@@ -115,7 +115,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           friendshipData,
         ),
-      Error() => data,
+      Err() => data,
     };
     state = SearchLoadedState(data: friendshipsData);
     setState(() {});
@@ -145,7 +145,7 @@ class _SearchScreenState extends State<SearchScreen> {
   ) {
     final friendshipsData = switch (result) {
       Success() => [...data]..remove(friendshipData),
-      Error() => data,
+      Err() => data,
     };
     state = SearchLoadedState(data: friendshipsData);
     setState(() {});
