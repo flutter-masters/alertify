@@ -19,9 +19,7 @@ class FriendsTab extends ConsumerWidget {
 
     ref.listen(
       friendshipControllerProvider.select((value) => value.hasError),
-      (_, next) {
-        print('OOOPPSSSS!!!');
-      },
+      (_, next) {},
     );
 
     return Material(
