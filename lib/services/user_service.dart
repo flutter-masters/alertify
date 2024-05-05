@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../core/result.dart';
-import '../core/typedefs.dart';
+import '../core/mobile_core_utils/failures/failure.dart';
+import '../core/mobile_core_utils/result/result.dart';
+import '../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../entities/app_user.dart';
-import '../failures/failure.dart';
 
 extension type UserService(FirebaseFirestore db) {
   CollectionReference<Json> get _collection => db.collection('users');

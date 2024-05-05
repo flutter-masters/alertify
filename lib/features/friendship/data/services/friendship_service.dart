@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../../core/result.dart';
-import '../../../../core/typedefs.dart';
+import '../../../../core/mobile_core_utils/extensions/documents_snapshot_x.dart';
+import '../../../../core/mobile_core_utils/failures/failure.dart';
+import '../../../../core/mobile_core_utils/result/result.dart';
+import '../../../../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../../../../entities/friendship.dart';
-import '../../../../extensions/documents_snapshot_x.dart';
-import '../../../../failures/failure.dart';
 import '../../../../ui/shared/extensions/iterable_x.dart';
 import '../../domain/repositories/friendship_repository.dart';
 

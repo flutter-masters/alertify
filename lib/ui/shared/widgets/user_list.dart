@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/typedefs.dart';
+import '../../../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../theme/palette.dart';
 
 class UserList<T> extends StatelessWidget {

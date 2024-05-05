@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/mobile_core_utils/result/result.dart';
 import '../../../../core/providers.dart';
-import '../../../../core/result.dart';
 
 final profileDataProvider = FutureProvider.autoDispose((ref) async {
   final currentUserId = ref.watch(userServiceProvider).currentUserId;

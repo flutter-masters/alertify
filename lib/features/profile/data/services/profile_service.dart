@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../core/result.dart';
-import '../../../../core/typedefs.dart';
+import '../../../../core/mobile_core_utils/extensions/documents_snapshot_x.dart';
+import '../../../../core/mobile_core_utils/failures/failure.dart';
+import '../../../../core/mobile_core_utils/result/result.dart';
+import '../../../../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../../../../entities/app_user.dart';
-import '../../../../extensions/documents_snapshot_x.dart';
-import '../../../../failures/failure.dart';
 import '../../domain/repositories/profile_repository.dart';
 
 class ProfileService implements ProfileRepository {

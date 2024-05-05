@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/typedefs.dart';
+import '../../../../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../../../../ui/screens/search/search_screen.dart';
 import '../../../../ui/shared/dialogs/loader_dialog.dart';
 import '../../../../ui/shared/extensions/build_context.dart';

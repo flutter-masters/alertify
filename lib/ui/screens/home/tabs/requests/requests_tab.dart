@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../../core/mobile_core_utils/failures/failure.dart';
+import '../../../../../core/mobile_core_utils/result/result.dart';
+import '../../../../../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../../../../../core/providers.dart';
-import '../../../../../core/result.dart';
-import '../../../../../core/typedefs.dart';
-import '../../../../../failures/failure.dart';
 import '../../../../../services/friendship_service.dart';
 import '../../../../shared/dialogs/loader_dialog.dart';
 import '../../../../shared/extensions/build_context.dart';

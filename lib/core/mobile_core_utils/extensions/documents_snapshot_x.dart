@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../core/typedefs.dart';
-import '../entities/app_user.dart';
-import '../entities/emergency_alert.dart';
-import '../entities/friendship.dart';
+import '../../../entities/app_user.dart';
+import '../../../entities/emergency_alert.dart';
+import '../../../entities/friendship.dart';
+import '../typedefs/typedefs.dart';
 
 extension DocumentSnapshotX on DocumentSnapshot<Json> {
   AppUser toAppUser() {

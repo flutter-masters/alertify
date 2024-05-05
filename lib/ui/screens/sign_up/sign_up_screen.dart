@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/result.dart';
+import '../../../core/mobile_core_utils/result/result.dart';
 import '../../../entities/app_user.dart';
 import '../../../features/sign_in/presentation/view/sign_in_screen.dart';
 import '../../../main.dart';

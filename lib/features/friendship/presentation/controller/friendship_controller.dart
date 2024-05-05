@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/mobile_core_utils/result/result.dart';
+import '../../../../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../../../../core/providers.dart';
-import '../../../../core/result.dart';
-import '../../../../core/typedefs.dart';
 
 class FriendshipController
     extends AutoDisposeAsyncNotifier<List<FriendshipData>> {

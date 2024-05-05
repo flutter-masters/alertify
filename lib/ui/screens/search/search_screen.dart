@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../services/friendship_service.dart';
+import '../../../core/mobile_core_utils/failures/failure.dart';
+import '../../../core/mobile_core_utils/result/result.dart';
+import '../../../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../../../core/providers.dart';
-import '../../../core/result.dart';
-import '../../../core/typedefs.dart';
 import '../../../entities/friendship.dart';
-import '../../../failures/failure.dart';
 import '../../shared/dialogs/loader_dialog.dart';
 import '../../shared/validators/form_validator.dart';
 import '../../shared/widgets/user_list.dart';

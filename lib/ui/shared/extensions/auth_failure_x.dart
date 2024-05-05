@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../failures/auth_failure.dart';
+import '../../../core/mobile_core_utils/failures/auth_failure.dart';
 
 extension SignInAuthFailureX on SignInAuthFailure {
   ({IconData icon, String message}) get errorData => switch (this) {

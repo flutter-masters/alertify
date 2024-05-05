@@ -1,6 +1,6 @@
-import '../core/typedefs.dart';
+import '../core/mobile_core_utils/failures/auth_failure.dart';
+import '../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../entities/app_user.dart';
-import '../failures/auth_failure.dart';
 
 abstract interface class AuthRepo {
   FutureAuthResult<AppUser, SignUpAuthFailure> signUp({

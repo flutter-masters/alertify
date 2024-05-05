@@ -1,4 +1,4 @@
-import '../../../../core/typedefs.dart';
+import '../../../../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../../../../entities/app_user.dart';
 
 abstract interface class ProfileRepository {

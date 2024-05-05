@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../core/result.dart';
-import '../core/typedefs.dart';
+import '../core/mobile_core_utils/failures/auth_failure.dart';
+import '../core/mobile_core_utils/result/result.dart';
+import '../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../entities/app_user.dart';
-import '../failures/auth_failure.dart';
 import '../repositories/auth_repo.dart';
 
 class FirebaseAuthAdapter implements AuthRepo {

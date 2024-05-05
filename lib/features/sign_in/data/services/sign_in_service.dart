@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../core/result.dart';
-import '../../../../core/typedefs.dart';
-import '../../../../failures/auth_failure.dart';
+import '../../../../core/mobile_core_utils/failures/auth_failure.dart';
+import '../../../../core/mobile_core_utils/result/result.dart';
+import '../../../../core/mobile_core_utils/typedefs/typedefs.dart';
 import '../../domain/repositories/sign_in_repository.dart';
 
 class SignInService implements SignInRepository {

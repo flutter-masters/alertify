@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../failures/auth_failure.dart';
+import '../../../../core/mobile_core_utils/failures/auth_failure.dart';
 import '../../../../ui/screens/home/home_screen.dart';
 import '../../../../ui/screens/sign_up/sign_up_screen.dart';
 import '../../../../ui/shared/dialogs/error_dialog.dart';
