@@ -1,7 +1,7 @@
-import 'package:alertify/core/result.dart';
-import 'package:alertify/core/typedefs.dart';
+import 'package:alertify/core/mobile_core_utils/failures/failure.dart';
+import 'package:alertify/core/mobile_core_utils/result/result.dart';
+import 'package:alertify/core/mobile_core_utils/typedefs/typedefs.dart';
 import 'package:alertify/entities/app_user.dart';
-import 'package:alertify/failures/failure.dart';
 import 'package:alertify/features/profile/data/services/profile_service.dart';
 import 'package:alertify/features/profile/domain/repositories/profile_repository.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';

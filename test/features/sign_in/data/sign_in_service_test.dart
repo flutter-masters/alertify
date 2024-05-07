@@ -1,6 +1,6 @@
-import 'package:alertify/core/result.dart';
-import 'package:alertify/core/typedefs.dart';
-import 'package:alertify/failures/auth_failure.dart';
+import 'package:alertify/core/mobile_core_utils/failures/auth_failure.dart';
+import 'package:alertify/core/mobile_core_utils/result/result.dart';
+import 'package:alertify/core/mobile_core_utils/typedefs/typedefs.dart';
 import 'package:alertify/features/sign_in/data/services/sign_in_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
