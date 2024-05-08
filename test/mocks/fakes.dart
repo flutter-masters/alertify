@@ -7,13 +7,14 @@ const fakeUserId = 'fakeId';
 const fakeUserSenderId = 'senderId';
 
 const fakeAppUser = AppUser(
-  id: 'id',
+  id: fakeUserId,
   email: 'prueba@prueba.com',
   username: 'MiUsuarioDePrueba',
   photoUrl: null,
 );
 
 final fakeAppUserMap = <String, dynamic>{
+  'id': fakeUserId,
   'email': 'prueba@prueba.com',
   'username': 'MiUsuarioDePrueba',
   'photoUrl': null,
@@ -26,7 +27,7 @@ final fakeFriendshipMap = <String, dynamic>{
   'createAt': dateNow.toIso8601String(),
   'updateAt': dateNow.toIso8601String(),
   'sender': 'senderId',
-  'users': ['senderId'],
+  'users': [fakeUserSenderId, fakeUserId],
 };
 
 final fakeFriendship = Friendship(
@@ -35,7 +36,7 @@ final fakeFriendship = Friendship(
   createAt: dateNow,
   updateAt: dateNow,
   sender: 'senderId',
-  users: ['senderId'],
+  users: [fakeUserSenderId, fakeUserId],
 );
 
 final fakeMockUser = MockUser(
