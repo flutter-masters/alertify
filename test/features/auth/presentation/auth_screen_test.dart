@@ -4,29 +4,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Auth screen', (tester) async {
-    // arrange
-    TestWidgetsFlutterBinding.ensureInitialized();
-    await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
-          home: AuthScreen(),
-        ),
-      ),
-    );
+  const Widget authScreen = ProviderScope(
+    child: MaterialApp(
+      home: AuthScreen(),
+    ),
+  );
 
-    // act
-    final image = find.byType(Image);
-    final buttons = find.byType(ElevatedButton);
+  testWidgets(
+    'Auth screen',
+    (tester) async {
+      // arrange
+      TestWidgetsFlutterBinding.ensureInitialized();
+      await tester.pumpWidget(
+        authScreen,
+      );
 
-    final headerText = find.text('By Flutter Dev, To Flutter Dev');
-    final mainIcon = find.byIcon(Icons.arrow_back);
+      // act
+      final image = find.byType(Image);
+      final buttons = find.byType(ElevatedButton);
 
-    // assert
-    expect(image, findsOneWidget);
-    expect(buttons, findsNWidgets(2));
+      final headerText = find.text('By Flutter Dev, To Flutter Dev');
+      final mainIcon = find.byIcon(Icons.arrow_back);
 
-    expect(headerText, findsOneWidget);
-    expect(mainIcon, findsNothing);
-  });
+      // assert
+      expect(image, findsOneWidget);
+      expect(buttons, findsNWidgets(2));
+
+      expect(headerText, findsOneWidget);
+      expect(mainIcon, findsNothing);
+    },
+  );
 }
