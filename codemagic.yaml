@@ -51,4 +51,7 @@ workflows:
         script: flutter build apk --release
       - name: FLUTTER IPA
         script: flutter build ipa --release --export-options-plist=ios/Runner/ExportOptions.plist
-        
+    artifacts:
+      - build/ios/ipa/Apps/alertify.ipa
+      - build/app/outputs/flutter-apk/app-release.apk
+  
