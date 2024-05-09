@@ -2,9 +2,9 @@
 # 2. Estrategia de cache ✅
 # 3. workflow ✅
 # 4. flutter configuration && Java configuration ✅
-# 5. Trigger
-# 6. flutter testing
-# 7. flutter analyze
+# 5. Trigger ✅
+# 6. flutter analyze ✅
+# 7. flutter testing ✅
 # 8. flutter apk
 # 9. flutter ipa
 # 10. push firebase app distribution
@@ -35,3 +35,20 @@ workflows:
        - include: true
          source: true
          pattern: codemagic
+  
+    scripts:
+      - name: INIT KEYCHAIN
+        script: keychain initialize
+      - name: ADD CERTIFICATES
+        script: keychain add-certificates
+      - name: SET PROVISIONING PROFILES
+        script: xcode-project use-profiles
+      - name: FLUTTER ANALYZE
+        script: flutter analyze
+      - name: FLUTTER TEST
+        script: flutter test
+      - name: FLUTTER APK
+        script: flutter build apk --release
+      - name: FLUTTER IPA
+        script: flutter build ipa --release --export-options-plist=ios/Runner/ExportOptions.plist
+        
