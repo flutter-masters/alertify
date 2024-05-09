@@ -1,0 +1,37 @@
+# 1.Configuracion del repositorio ✅
+# 2. Estrategia de cache ✅
+# 3. workflow ✅
+# 4. flutter configuration && Java configuration ✅
+# 5. Trigger
+# 6. flutter testing
+# 7. flutter analyze
+# 8. flutter apk
+# 9. flutter ipa
+# 10. push firebase app distribution
+
+name: fluttermasters
+workflows:
+  flutter_masters:
+    cache:
+      cache_paths:
+        - "$HOME/.pub-cache"
+        - "$HOME/.gradle/caches"
+        - "$HOME/Library/CocoaPods"
+
+    environment:
+     groups:
+       - "Firebase"
+     flutter: stable
+     java: 11
+     ios_signing:
+      certificates:
+        - FlutterMasterDevelopCertificate
+      provisioning_profiles:
+        - FlutterMasterProvisionProfile
+    triggering:
+     events:
+       - "push"
+     branch_patterns:
+       - include: true
+         source: true
+         pattern: codemagic
