@@ -62,8 +62,8 @@ extension type FriendshipService(FirebaseFirestore db) {
         data.add((friendships: friendship, user: user));
       }
       return Success(data);
-    } catch (_) {
-      return Err(Failure(message: _.toString()));
+    } catch (e) {
+      return Err(Failure(message: e.toString()));
     }
   }
 
@@ -90,8 +90,8 @@ extension type FriendshipService(FirebaseFirestore db) {
         );
       }
       return Success((friendships: friendship, user: user));
-    } catch (_) {
-      return Err(Failure(message: _.toString()));
+    } catch (e) {
+      return Err(Failure(message: e.toString()));
     }
   }
 
@@ -136,8 +136,8 @@ extension type FriendshipService(FirebaseFirestore db) {
           users: friendship.users,
         ),
       );
-    } catch (_) {
-      return Err(Failure(message: _.toString()));
+    } catch (e) {
+      return Err(Failure(message: e.toString()));
     }
   }
 
