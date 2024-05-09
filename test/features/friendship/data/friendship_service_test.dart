@@ -1,4 +1,4 @@
-import 'package:alertify/core/result.dart';
+import 'package:alertify/core/mobile_core_utils/result/result.dart';
 import 'package:alertify/features/friendship/data/services/friendship_service.dart';
 import 'package:alertify/features/friendship/domain/repositories/friendship_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
