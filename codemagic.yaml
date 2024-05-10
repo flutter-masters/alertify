@@ -5,9 +5,10 @@
 # 5. Trigger ✅
 # 6. flutter analyze ✅
 # 7. flutter testing ✅
-# 8. flutter apk
-# 9. flutter ipa
-# 10. push firebase app distribution
+# 8. flutter build apk ✅
+# 9. flutter build ipa ✅
+# 10. artifacts ✅
+# 11. push firebase app distribution
 
 name: fluttermasters
 workflows:
@@ -54,4 +55,17 @@ workflows:
     artifacts:
       - build/ios/ipa/Apps/alertify.ipa
       - build/app/outputs/flutter-apk/app-release.apk
-  
+    
+    publishing:
+     firebase:
+      firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
+      android:
+       app_id: 1:927233104549:android:56747debe9c0c55fdc8b4c
+       artifact_type: apk
+       groups:
+         - testers""
+
+      ios:
+       app_id: 1:927233104549:ios:6e7663cbe53d4358dc8b4c
+       groups:
+         - "testers-ios"
