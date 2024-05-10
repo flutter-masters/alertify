@@ -8,7 +8,8 @@
 # 8. flutter build apk ✅
 # 9. flutter build ipa ✅
 # 10. artifacts ✅
-# 11. push firebase app distribution
+# 11. push firebase app distribution ✅
+      
 
 name: fluttermasters
 workflows:
@@ -63,7 +64,7 @@ workflows:
        app_id: 1:927233104549:android:56747debe9c0c55fdc8b4c
        artifact_type: apk
        groups:
-         - testers""
+         - "testers"
 
       ios:
        app_id: 1:927233104549:ios:6e7663cbe53d4358dc8b4c
