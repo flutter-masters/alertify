@@ -72,4 +72,4 @@ workflows:
       ios:
        app_id: 1:927233104549:ios:6e7663cbe53d4358dc8b4c
        groups:
-         - "testers-ios"
+         - "testers"
