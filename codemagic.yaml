@@ -58,6 +58,9 @@ workflows:
       - build/app/outputs/flutter-apk/app-release.apk
     
     publishing:
+     email:
+      recipients:
+        - estev97@gmail.com
      firebase:
       firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
       android:
