@@ -10,7 +10,7 @@ dependencies:
   cloud_firestore: ^4.17.3
   cupertino_icons: ^1.0.8
   firebase_auth: ^4.19.5
-  firebase_core: ^2.31.0
+  firebase_core: ^2.31.1
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.5.1
