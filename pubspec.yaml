@@ -21,7 +21,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  mocktail: ^1.0.3
+  mocktail: ^1.0.4
   mock_exceptions: ^0.8.2
 
 flutter:
